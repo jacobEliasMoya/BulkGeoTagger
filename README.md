@@ -33,7 +33,7 @@ BulkGeoTagger/
 - Keys must be lowercase and use underscores instead of spaces (e.g., `sun_city`)
 - Values must be arrays of two floats: `[latitude, longitude]`
 
----
+--- 
 
 ## 🚀 Usage
 
