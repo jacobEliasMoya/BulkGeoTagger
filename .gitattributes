@@ -1,10 +1,16 @@
-# Force Python detection
+# .gitattributes
+*.py linguist-detectable=true
+/src/* linguist-detectable=true
+*.html linguist-detectable=false
+
+# Force GitHub to correctly identify Python as the main language
 *.py linguist-detectable=true
 /src/* linguist-detectable=true
 
-# Prevent markdown and text from affecting detection
+# Prevent Markdown and text files from skewing language stats
 *.md linguist-documentation
 *.txt linguist-documentation
 
-# Ignore weird misclassifications (like TeX)
+# Explicitly ignore LaTeX/TeX misdetection
 *.tex linguist-detectable=false
+g
