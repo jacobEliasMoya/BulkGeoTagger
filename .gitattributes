@@ -1,0 +1,4 @@
+# .gitattributes
+*.py linguist-detectable=true
+/src/* linguist-detectable=true
+*.html linguist-detectable=false
