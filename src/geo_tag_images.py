@@ -3,18 +3,23 @@ import os
 from PIL import Image
 import piexif
 
-def load_city_coords(json_path="city_coords.json"):
-    if not os.path.exists(json_path):
-        raise FileNotFoundError(f"City coordinates file not found: {json_path}")
+def load_city_coords():
+    json_files = [f for f in os.listdir() if f.endswith(".json")]
+
+    if not json_files:
+        raise FileNotFoundError("No .json file found in this directory.")
+
+    json_path = json_files[0]
+    print(f"📄 Using coordinate file: {json_path}")
     
     with open(json_path, "r") as f:
         try:
             data = json.load(f)
             if not isinstance(data, dict) or not data:
-                raise ValueError("city_coords.json is empty or incorrectly formatted.")
+                raise ValueError(f"{json_path} is empty or incorrectly formatted.")
             return data
         except json.JSONDecodeError:
-            raise ValueError("city_coords.json contains invalid JSON.")
+            raise ValueError(f"{json_path} contains invalid JSON.")
 
 def to_deg(value, ref_positive, ref_negative):
     ref = ref_positive if value >= 0 else ref_negative
@@ -46,6 +51,7 @@ try:
     city_coords = load_city_coords()
 except Exception as e:
     print(f"❌ Error: {e}")
+    input("\nPress Enter to exit...")
     exit(1)
 
 tagged_count = 0
@@ -65,8 +71,10 @@ for city, coords in city_coords.items():
 
 if tagged_count == 0:
     if checked_folders == 0:
-        print("⚠️  No matching folders found for any cities listed in city_coords.json.")
+        print("⚠️  No matching folders found for any cities listed in your .json file.")
     else:
         print("⚠️  No .jpg or .jpeg images found to tag in the available folders.")
 else:
     print(f"✅ Done! {tagged_count} image(s) tagged across {checked_folders} folder(s).")
+
+input("\nPress Enter to exit...")
