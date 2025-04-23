@@ -30,6 +30,15 @@ def to_deg(value, ref_positive, ref_negative):
     seconds = int((min_float - minutes) * 60 * 100)
     return ((deg, 1), (minutes, 1), (seconds, 100)), ref
 
+def convert_webp_to_jpg(webp_path):
+    jpg_path = webp_path.rsplit('.', 1)[0] + ".jpg"
+    with Image.open(webp_path) as img:
+        rgb_img = img.convert("RGB")
+        rgb_img.save(jpg_path, "JPEG")
+    os.remove(webp_path)  # remove the original webp
+    print(f"🔄 Converted: {webp_path} → {jpg_path}")
+    return jpg_path
+
 def add_gps_info(image_path, lat, lon):
     img = Image.open(image_path)
     exif_bytes = img.info.get('exif')
@@ -46,7 +55,7 @@ def add_gps_info(image_path, lat, lon):
     exif_bytes = piexif.dump(exif_dict)
     img.save(image_path, "jpeg", exif=exif_bytes)
 
-# Walk through folders and tag images/ importing from json
+# Walk through folders and tag images/import from JSON
 try:
     city_coords = load_city_coords()
 except Exception as e:
@@ -63,8 +72,11 @@ for city, coords in city_coords.items():
         continue
     checked_folders += 1
     for file in os.listdir(folder):
+        path = os.path.join(folder, file)
+        if file.lower().endswith(".webp"):
+            path = convert_webp_to_jpg(path)
+            file = os.path.basename(path)  # update filename after conversion
         if file.lower().endswith((".jpg", ".jpeg")):
-            path = os.path.join(folder, file)
             add_gps_info(path, *coords)
             print(f"✅ Tagged: {path}")
             tagged_count += 1

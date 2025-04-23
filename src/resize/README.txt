@@ -5,6 +5,27 @@ This CLI tool automates the compression, resizing, WebP conversion, and zip pack
 Ideal for devs and creatives who need quick, consistent output — especially when working with assets that must be optimized for performance or delivery.
 
 ---
+## 🧑‍💻 Usage
+
+1. **Drop your images into the `input/` folder**
+
+2. **Run the script in your termial:**
+
+```
+cd Desktop\pytools\src\resize\; python resize_images.py
+```
+
+3. **You'll be prompted to:**
+   - Set the target file size in KB (e.g. `400`)
+   - Choose whether to convert all images to WebP (`y/n`)
+
+4. **Results:**
+   - Optimized images are saved to `output/`
+   - A zip archive (e.g., `output.zip`, `output_1.zip`) is created
+   - Original images in `input/` remain untouched
+
+---
+---
 
 ## 🚀 Features
 
@@ -37,26 +58,7 @@ project/
 
 ---
 
-## 🧑‍💻 Usage
 
-1. **Drop your images into the `input/` folder**
-
-2. **Run the script:**
-
-```bash
-python image_tool.py
-```
-
-3. **You'll be prompted to:**
-   - Set the target file size in KB (e.g. `400`)
-   - Choose whether to convert all images to WebP (`y/n`)
-
-4. **Results:**
-   - Optimized images are saved to `output/`
-   - A zip archive (e.g., `output.zip`, `output_1.zip`) is created
-   - Original images in `input/` remain untouched
-
----
 
 ## 🧠 How It Works
 
